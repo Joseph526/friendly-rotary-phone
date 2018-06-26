@@ -13,6 +13,7 @@ class App extends Component {
         console.log("Card clicked!");
         const newState = { ...this.state };
         newState.currentScore += 1;
+        newState.topScore += 1;
         this.setState(newState);
     };
     

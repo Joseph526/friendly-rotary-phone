@@ -4,13 +4,13 @@ import Card from "../Card";
 const Row = props => (
     <div className="row">
         <div className="col-md-4">
-            <Card />
+            <Card onClick={props.handleCardClick} />
         </div>
         <div className="col-md-4">
-            <Card />
+            <Card onClick={props.handleCardClick} />
         </div>
         <div className="col-md-4">
-            <Card />
+            <Card onClick={props.handleCardClick} />
         </div>
     </div>
 );
