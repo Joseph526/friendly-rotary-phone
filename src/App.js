@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import Navbar from "./components/Navbar";
 import Jumbotron from "./components/Jumbotron";
 import Container from "./components/Container";
+import baseballCards from "./baseballCards.json";
 
 class App extends Component {
     state = {
+        baseballCards,
         currentScore: 0,
-        topScore: 0
+        topScore: 0,
+        cardClicked: [false, false, false, false, false, false, false, false, false]
     };
 
     handleCardClick = event => {
@@ -26,6 +29,7 @@ class App extends Component {
                 />
                 <Jumbotron />
                 <Container
+                    baseballCards={this.state.baseballCards}
                     handleCardClick={this.handleCardClick}
                 />
             </div>

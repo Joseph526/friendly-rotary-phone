@@ -5,9 +5,10 @@ const Container = props => (
     <main className="container-fluid">
         <div className="album py-5">
             <div className="container">
-                <Row handleCardClick={props.handleCardClick} />
-                <Row handleCardClick={props.handleCardClick} />
-                <Row handleCardClick={props.handleCardClick} />
+                <Row
+                    baseballCards={props.baseballCards}
+                    handleCardClick={props.handleCardClick}
+                />
             </div>
         </div>
     </main>

@@ -2,7 +2,7 @@ import React from "react";
 
 const Card = props => (
     <div className="card mb-4 box-shadow">
-        <img className="card-img-top" src="http://via.placeholder.com/300" alt="Placeholder" onClick={props.onClick} />
+        <img className="img-thumbnail" id={props.id} src={props.href} alt="Baseball Card" onClick={props.onClick} />
     </div>
 );
 
