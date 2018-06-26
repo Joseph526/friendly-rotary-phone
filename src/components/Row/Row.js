@@ -3,18 +3,14 @@ import Card from "../Card";
 
 const Row = props => (
     <div className="row">
-        {/* <div className="col-md"> */}
-            {props.baseballCards.map(baseballCard => (
-                <div className="col-md" key={"row" + baseballCard.id}>
-                    <Card
-                        id={baseballCard.id}
-                        key={baseballCard.id}
-                        href={baseballCard.href}
-                        onClick={props.handleCardClick}
-                    />
-                </div>
-            ))}
-        {/* </div> */}
+        {props.baseballCards.map(baseballCard => (
+            <Card
+                id={baseballCard.id}
+                key={baseballCard.id}
+                href={baseballCard.href}
+                onClick={props.handleCardClick}
+            />
+        ))}
     </div>
 );
 
