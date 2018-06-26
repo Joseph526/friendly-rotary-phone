@@ -5,7 +5,7 @@ const Row = props => (
     <div className="row">
         {/* <div className="col-md"> */}
             {props.baseballCards.map(baseballCard => (
-                <div className="col-md">
+                <div className="col-md" key={"row" + baseballCard.id}>
                     <Card
                         id={baseballCard.id}
                         key={baseballCard.id}
