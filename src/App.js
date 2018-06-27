@@ -13,10 +13,8 @@ class App extends Component {
     };
 
     handleCardClick = event => {
-        console.log("Card clicked!");
         // Get the id of the clicked card
         const cardId = event.target.attributes.getNamedItem("id").value;
-        console.log(cardId);
         // Clone this.state to the newState object
         const newState = { ...this.state };
         // Check if card has been clicked twice
@@ -29,9 +27,8 @@ class App extends Component {
         else {
             // Update newState, then replace this.state with newState
             newState.currentScore += 1;
-            newState.topScore += 1;
+            newState.topScore = (newState.currentScore >= newState.topScore) ? newState.currentScore : newState.topScore;
             newState.cardClicked[cardId] = true;
-            console.log(newState.cardClicked);
             this.setState(newState);
         }
     };
