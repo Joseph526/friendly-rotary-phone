@@ -19,12 +19,21 @@ class App extends Component {
         console.log(cardId);
         // Clone this.state to the newState object
         const newState = { ...this.state };
-        // Update newState, then replace this.state with newState
-        newState.currentScore += 1;
-        newState.topScore += 1;
-        newState.cardClicked[cardId] = true;
-        console.log(newState.cardClicked);
-        this.setState(newState);
+        // Check if card has been clicked twice
+        if (this.state.cardClicked[cardId]) {
+            // Update newState as reset, then replace this.state with newState
+            newState.currentScore = 0;
+            newState.cardClicked = [false, false, false, false, false, false, false, false, false];
+            this.setState(newState);
+        }
+        else {
+            // Update newState, then replace this.state with newState
+            newState.currentScore += 1;
+            newState.topScore += 1;
+            newState.cardClicked[cardId] = true;
+            console.log(newState.cardClicked);
+            this.setState(newState);
+        }
     };
     
     render() {
