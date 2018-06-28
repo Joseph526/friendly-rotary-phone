@@ -12,6 +12,19 @@ class App extends Component {
         cardClicked: [false, false, false, false, false, false, false, false, false]
     };
 
+    shuffle = arr => {
+        let i;
+        let j;
+        let temp;
+        for (i = arr.length - 1; i > 0; i--) {
+            j = Math.floor(Math.random() * (i + 1));
+            temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+        return arr;
+    };
+
     handleCardClick = event => {
         // Get the id of the clicked card
         const cardId = event.target.attributes.getNamedItem("id").value;
@@ -22,6 +35,7 @@ class App extends Component {
             // Update newState as reset, then replace this.state with newState
             newState.currentScore = 0;
             newState.cardClicked = [false, false, false, false, false, false, false, false, false];
+            newState.baseballCards = this.shuffle(baseballCards);
             this.setState(newState);
         }
         else {
@@ -29,6 +43,7 @@ class App extends Component {
             newState.currentScore += 1;
             newState.topScore = (newState.currentScore >= newState.topScore) ? newState.currentScore : newState.topScore;
             newState.cardClicked[cardId] = true;
+            newState.baseballCards = this.shuffle(baseballCards);
             this.setState(newState);
         }
     };
