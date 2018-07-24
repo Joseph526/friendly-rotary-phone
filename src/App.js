@@ -9,7 +9,8 @@ class App extends Component {
         baseballCards,
         currentScore: 0,
         topScore: 0,
-        cardClicked: [false, false, false, false, false, false, false, false, false]
+        cardClicked: [false, false, false, false, false, false, false, false, false],
+        message: "Test"
     };
 
     shuffle = arr => {
@@ -54,6 +55,7 @@ class App extends Component {
                 <Navbar
                     currentScore={this.state.currentScore}
                     topScore={this.state.topScore}
+                    message={this.state.message}
                 />
                 <Jumbotron />
                 <Container
