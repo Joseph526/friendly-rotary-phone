@@ -10,7 +10,7 @@ class App extends Component {
         currentScore: 0,
         topScore: 0,
         cardClicked: [false, false, false, false, false, false, false, false, false],
-        message: "Test"
+        message: ""
     };
 
     shuffle = arr => {
@@ -35,6 +35,7 @@ class App extends Component {
         if (this.state.cardClicked[cardId]) {
             // Update newState as reset, then replace this.state with newState
             newState.currentScore = 0;
+            newState.message = "Sorry, you lost!";
             newState.cardClicked = [false, false, false, false, false, false, false, false, false];
             newState.baseballCards = this.shuffle(baseballCards);
             this.setState(newState);
@@ -44,6 +45,14 @@ class App extends Component {
             newState.currentScore += 1;
             newState.topScore = (newState.currentScore >= newState.topScore) ? newState.currentScore : newState.topScore;
             newState.cardClicked[cardId] = true;
+            newState.baseballCards = this.shuffle(baseballCards);
+            this.setState(newState);
+        }
+        // Check if currentScore equals length of baseballCards array => win condition
+        if (this.state.currentScore === this.state.baseballCards.length) {
+            newState.currentScore = 0;
+            newState.message = "Congrats, you won!";
+            newState.cardClicked = [false, false, false, false, false, false, false, false, false];
             newState.baseballCards = this.shuffle(baseballCards);
             this.setState(newState);
         }
