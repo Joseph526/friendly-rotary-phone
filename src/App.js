@@ -53,7 +53,7 @@ class App extends Component {
             this.setState(newState);
         }
         // Check if currentScore equals length of baseballCards array => win condition
-        if (this.state.currentScore === this.state.baseballCards.length) {
+        if (newState.currentScore === this.state.baseballCards.length) {
             newState.message = "Congrats, you won!";
             this.resetGame(newState);
         }
