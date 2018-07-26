@@ -9,13 +9,13 @@ class App extends Component {
         baseballCards,
         currentScore: 0,
         topScore: 0,
-        cardClicked: [false, false, false, false, false, false, false, false, false],
+        // cardClicked: [false, false, false, false, false, false, false, false, false],
         message: ""
     };
 
     resetGame = newState => {
         newState.currentScore = 0;
-        newState.cardClicked = [false, false, false, false, false, false, false, false, false];
+        // newState.cardClicked = [false, false, false, false, false, false, false, false, false];
         newState.baseballCards = this.shuffle(baseballCards);
         this.setState(newState);
     };
@@ -39,16 +39,19 @@ class App extends Component {
         // Clone this.state to the newState object
         const newState = { ...this.state };
         // Check if card has been clicked twice
-        if (this.state.cardClicked[cardId]) {
+        if (this.state.baseballCards[cardId].cardClicked) {
             // Update newState as reset, then replace this.state with newState
             newState.message = "Sorry, you lost!";
             this.resetGame(newState);
         }
         else {
             // Update newState, then replace this.state with newState
+            // Increment currentScore (and topScore if necessary)
             newState.currentScore += 1;
             newState.topScore = (newState.currentScore >= newState.topScore) ? newState.currentScore : newState.topScore;
-            newState.cardClicked[cardId] = true;
+            // Set cardClicked to true
+            newState.baseballCards[cardId].cardClicked = true;
+            console.log(newState.baseballCards);
             newState.baseballCards = this.shuffle(baseballCards);
             this.setState(newState);
         }
