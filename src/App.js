@@ -10,13 +10,24 @@ class App extends Component {
         currentScore: 0,
         topScore: 0,
         // cardClicked: [false, false, false, false, false, false, false, false, false],
+        cardsDidShuffle: false,
         message: ""
+    };
+
+    componentDidUpdate() {
+        if (!this.state.cardsDidShuffle) {
+            const newState = { ...this.state };
+            newState.baseballCards = this.shuffle(newState.baseballCards);
+            newState.cardsDidShuffle = true;
+            this.setState(newState);
+        }
     };
 
     resetGame = newState => {
         newState.currentScore = 0;
         // newState.cardClicked = [false, false, false, false, false, false, false, false, false];
-        newState.baseballCards = this.shuffle(baseballCards);
+        // newState.baseballCards = this.shuffle(baseballCards);
+        newState.cardsDidShuffle = false;
         this.setState(newState);
     };
 
@@ -52,7 +63,8 @@ class App extends Component {
             // Set cardClicked to true
             newState.baseballCards[cardId].cardClicked = true;
             console.log(newState.baseballCards);
-            newState.baseballCards = this.shuffle(baseballCards);
+            // newState.baseballCards = this.shuffle(baseballCards);
+            newState.cardsDidShuffle = false;
             this.setState(newState);
         }
         // Check if currentScore equals length of baseballCards array => win condition
