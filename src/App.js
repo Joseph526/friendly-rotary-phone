@@ -9,7 +9,6 @@ class App extends Component {
         baseballCards,
         currentScore: 0,
         topScore: 0,
-        // cardClicked: [false, false, false, false, false, false, false, false, false],
         cardsDidShuffle: false,
         message: ""
     };
@@ -17,7 +16,7 @@ class App extends Component {
     componentDidUpdate() {
         if (!this.state.cardsDidShuffle) {
             const newState = { ...this.state };
-            newState.baseballCards = this.shuffle(newState.baseballCards);
+            // newState.baseballCards = this.shuffle(newState.baseballCards);
             newState.cardsDidShuffle = true;
             this.setState(newState);
         }
@@ -25,8 +24,6 @@ class App extends Component {
 
     resetGame = newState => {
         newState.currentScore = 0;
-        // newState.cardClicked = [false, false, false, false, false, false, false, false, false];
-        // newState.baseballCards = this.shuffle(baseballCards);
         newState.cardsDidShuffle = false;
         this.setState(newState);
     };
@@ -63,7 +60,6 @@ class App extends Component {
             // Set cardClicked to true
             newState.baseballCards[cardId].cardClicked = true;
             console.log(newState.baseballCards);
-            // newState.baseballCards = this.shuffle(baseballCards);
             newState.cardsDidShuffle = false;
             this.setState(newState);
         }
