@@ -16,13 +16,14 @@ class App extends Component {
     componentDidUpdate() {
         if (!this.state.cardsDidShuffle) {
             const newState = { ...this.state };
-            // newState.baseballCards = this.shuffle(newState.baseballCards);
+            newState.baseballCards = this.shuffle(newState.baseballCards);
             newState.cardsDidShuffle = true;
             this.setState(newState);
         }
     };
 
     resetGame = newState => {
+        newState.baseballCards = baseballCards;
         newState.currentScore = 0;
         newState.cardsDidShuffle = false;
         this.setState(newState);
@@ -44,27 +45,30 @@ class App extends Component {
     handleCardClick = event => {
         // Get the id of the clicked card
         const cardId = event.target.attributes.getNamedItem("id").value;
+        console.log(cardId);
         // Clone this.state to the newState object
         const newState = { ...this.state };
         // Check if card has been clicked twice
-        if (this.state.baseballCards[cardId].cardClicked) {
-            // Update newState as reset, then replace this.state with newState
-            newState.message = "Sorry, you lost!";
-            this.resetGame(newState);
+        for (let i = 0; i < newState.baseballCards.length; i++) {
+            if (newState.baseballCards[i].id === cardId && newState.baseballCards[i].cardClicked) {
+                // Update newState as reset, then replace this.state with newState
+                newState.message = "Sorry, you lost!";
+                this.resetGame(newState);
+            }
+            else if (newState.baseballCards[i].id === cardId && !newState.baseballCards[i].cardClicked) {
+                // Update newState, then replace this.state with newState
+                // Increment currentScore (and topScore if necessary)
+                newState.currentScore += 1;
+                newState.topScore = (newState.currentScore >= newState.topScore) ? newState.currentScore : newState.topScore;
+                // Set cardClicked to true
+                newState.baseballCards[i].cardClicked = true;
+                newState.cardsDidShuffle = false;
+                this.setState(newState);
+            }
         }
-        else {
-            // Update newState, then replace this.state with newState
-            // Increment currentScore (and topScore if necessary)
-            newState.currentScore += 1;
-            newState.topScore = (newState.currentScore >= newState.topScore) ? newState.currentScore : newState.topScore;
-            // Set cardClicked to true
-            newState.baseballCards[cardId].cardClicked = true;
-            console.log(newState.baseballCards);
-            newState.cardsDidShuffle = false;
-            this.setState(newState);
-        }
+        console.log(newState.baseballCards);
         // Check if currentScore equals length of baseballCards array => win condition
-        if (newState.currentScore === this.state.baseballCards.length) {
+        if (newState.currentScore === newState.baseballCards.length) {
             newState.message = "Congrats, you won!";
             this.resetGame(newState);
         }
