@@ -42,6 +42,19 @@ class App extends Component {
         return arr;
     };
 
+    handleCorrectGuess = newState => {
+        // Increment currentScore (and topScore if necessary)
+        newState.currentScore += 1;
+        newState.topScore = (newState.currentScore >= newState.topScore) ? newState.currentScore : newState.topScore;
+        newState.cardsDidShuffle = false;
+        this.setState(newState);
+    };
+
+    handleIncorrectGuess = newState => {
+        newState.message = "Sorry, you lost!";
+        this.resetGame(newState);
+    };
+
     handleCardClick = event => {
         // Get the id of the clicked card
         const cardId = event.target.attributes.getNamedItem("id").value;
@@ -50,20 +63,18 @@ class App extends Component {
         const newState = { ...this.state };
         // Check if card has been clicked twice
         for (let i = 0; i < newState.baseballCards.length; i++) {
-            if (newState.baseballCards[i].id === cardId && newState.baseballCards[i].cardClicked) {
-                // Update newState as reset, then replace this.state with newState
-                newState.message = "Sorry, you lost!";
-                this.resetGame(newState);
+            if (newState.baseballCards[i].id === cardId) {
+                if (newState.baseballCards[i].cardClicked) {
+                    this.handleIncorrectGuess(newState);
+                }
+                else if (!newState.baseballCards[i].cardClicked) {
+                    // Set cardClicked to true
+                    newState.baseballCards[i].cardClicked = true;
+                    this.handleCorrectGuess(newState);
+                }
             }
-            else if (newState.baseballCards[i].id === cardId && !newState.baseballCards[i].cardClicked) {
-                // Update newState, then replace this.state with newState
-                // Increment currentScore (and topScore if necessary)
-                newState.currentScore += 1;
-                newState.topScore = (newState.currentScore >= newState.topScore) ? newState.currentScore : newState.topScore;
-                // Set cardClicked to true
-                newState.baseballCards[i].cardClicked = true;
-                newState.cardsDidShuffle = false;
-                this.setState(newState);
+            else {
+                console.log("Nothing happened");
             }
         }
         console.log(newState.baseballCards);
