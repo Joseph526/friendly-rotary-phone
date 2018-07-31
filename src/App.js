@@ -47,6 +47,11 @@ class App extends Component {
         newState.currentScore += 1;
         newState.topScore = (newState.currentScore >= newState.topScore) ? newState.currentScore : newState.topScore;
         newState.cardsDidShuffle = false;
+        // Check if currentScore equals length of baseballCards array => win condition
+        if (newState.currentScore === newState.baseballCards.length) {
+            newState.message = "Congrats, you won!";
+            this.resetGame(newState);
+        }
         this.setState(newState);
     };
 
@@ -59,30 +64,25 @@ class App extends Component {
         // Get the id of the clicked card
         const cardId = event.target.attributes.getNamedItem("id").value;
         console.log(cardId);
+        // Set a flag for a correct guess
+        let guessedCorrectly = false;
         // Clone this.state to the newState object
         const newState = { ...this.state };
         // Check if card has been clicked twice
-        for (let i = 0; i < newState.baseballCards.length; i++) {
-            if (newState.baseballCards[i].id === cardId) {
-                if (newState.baseballCards[i].cardClicked) {
-                    this.handleIncorrectGuess(newState);
-                }
-                else if (!newState.baseballCards[i].cardClicked) {
+        const newData = newState.baseballCards.map(item => {
+            if (item.id === cardId) {
+                if (!item.cardClicked) {
                     // Set cardClicked to true
-                    newState.baseballCards[i].cardClicked = true;
-                    this.handleCorrectGuess(newState);
+                    item.cardClicked = true;
+                    // Set guessedCorrectly to true
+                    guessedCorrectly = true;
                 }
             }
-            else {
-                console.log("Nothing happened");
-            }
-        }
-        console.log(newState.baseballCards);
-        // Check if currentScore equals length of baseballCards array => win condition
-        if (newState.currentScore === newState.baseballCards.length) {
-            newState.message = "Congrats, you won!";
-            this.resetGame(newState);
-        }
+            return item;
+        });
+        guessedCorrectly
+            ? this.handleCorrectGuess(newData)
+            : this.handleIncorrectGuess(newData);
     };
     
     render() {
