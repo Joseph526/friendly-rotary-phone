@@ -62,7 +62,7 @@ class App extends Component {
 
     handleCardClick = event => {
         // Get the id of the clicked card
-        const cardId = event.target.attributes.getNamedItem("id").value;
+        const cardId = parseInt(event.target.attributes.getNamedItem("id").value);
         console.log(cardId);
         // Set a flag for a correct guess
         let guessedCorrectly = false;
@@ -71,6 +71,7 @@ class App extends Component {
         // Check if card has been clicked twice
         const newData = newState.baseballCards.map(item => {
             if (item.id === cardId) {
+                console.log(item.id);
                 if (!item.cardClicked) {
                     // Set cardClicked to true
                     item.cardClicked = true;
@@ -78,6 +79,7 @@ class App extends Component {
                     guessedCorrectly = true;
                 }
             }
+            console.log(item);
             return item;
         });
         guessedCorrectly
