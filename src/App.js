@@ -24,6 +24,7 @@ class App extends Component {
 
     resetGame = newState => {
         newState.baseballCards = baseballCards;
+        console.log(newState.baseballCards);
         newState.currentScore = 0;
         newState.cardsDidShuffle = false;
         this.setState(newState);
