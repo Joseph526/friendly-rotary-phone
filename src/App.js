@@ -62,8 +62,7 @@ class App extends Component {
 
     handleCardClick = event => {
         // Get the id of the clicked card
-        const cardId = parseInt(event.target.attributes.getNamedItem("id").value);
-        console.log(cardId);
+        const cardId = parseInt(event.target.attributes.getNamedItem("id").value, 10);
         // Set a flag for a correct guess
         let guessedCorrectly = false;
         // Clone this.state to the newState object
@@ -79,12 +78,12 @@ class App extends Component {
                     guessedCorrectly = true;
                 }
             }
-            console.log(item);
             return item;
         });
+        newState.baseballCards = newData;
         guessedCorrectly
-            ? this.handleCorrectGuess(newData)
-            : this.handleIncorrectGuess(newData);
+            ? this.handleCorrectGuess(newState)
+            : this.handleIncorrectGuess(newState);
     };
     
     render() {
