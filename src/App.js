@@ -28,7 +28,6 @@ class App extends Component {
             item.cardClicked = false;
             return item;
         });
-        console.log(newState.baseballCards);
         newState.currentScore = 0;
         newState.cardsDidShuffle = false;
         this.setState(newState);
@@ -75,7 +74,6 @@ class App extends Component {
         // Check if card has been clicked twice
         const newData = newState.baseballCards.map(item => {
             if (item.id === cardId) {
-                console.log(item.id);
                 if (!item.cardClicked) {
                     // Set cardClicked to true
                     item.cardClicked = true;
