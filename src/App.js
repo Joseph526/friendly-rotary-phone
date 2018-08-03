@@ -86,6 +86,8 @@ class App extends Component {
             return item;
         });
         newState.baseballCards = newData;
+        // Clear the message between guesses
+        newState.message = "";
         guessedCorrectly
             ? this.handleCorrectGuess(newState)
             : this.handleIncorrectGuess(newState);
