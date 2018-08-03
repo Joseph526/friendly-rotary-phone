@@ -23,7 +23,11 @@ class App extends Component {
     };
 
     resetGame = newState => {
-        newState.baseballCards = baseballCards;
+        // Reset cardClicked to false for each card
+        newState.baseballCards = newState.baseballCards.map(item => {
+            item.cardClicked = false;
+            return item;
+        });
         console.log(newState.baseballCards);
         newState.currentScore = 0;
         newState.cardsDidShuffle = false;
